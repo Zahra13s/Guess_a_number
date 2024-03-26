@@ -183,8 +183,7 @@
     document.getElementById("again").addEventListener("click", reload);
 
     function submit_no() {
-      guessTImes++;
-      
+    
       let guessNumber = document.getElementById("guessnNo");
       let guess_no = guessNumber.value;
 
@@ -193,6 +192,7 @@
       } else if(guess_no% 1 != 0){
         document.getElementById("feedback").innerHTML = "You need to guess integer number";
       }else {
+        guessTImes++;
         if (guessTImes > 10) {
           guessNumber.disabled = true;
           document.getElementById("again").style.visibility = "visible";
