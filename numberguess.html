@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+    * {
+      font-family: "VT323", monospace;
+    }
+
+    body {
+      height: 100vh;
+      background-color: beige;
+      margin: 0;
+    }
+
+    .card {
+      width: 60%;
+      background-color: #fff7d3;
+      border-image: linear-gradient(#eb6b6e, #7c3f58) 75;
+      border-width: 4px;
+      border-style: solid;
+      height: auto;
+      margin: auto;
+      text-align: center;
+    }
+
+    .left {
+      width: 15px;
+      height: 15px;
+      color: aqua;
+    }
+
+    #submit{
+      background-image: url(Guess_btn.png);
+      background-size: 100%;
+      border: none;
+    }
+
+    #again{
+      background-image: url(try_again_bg.png);
+      background-size: 100%;
+      border: none;
+    }
+
+    label {
+      font-size: 75px;
+    }
+
+    span,
+    h5 {
+      font-size: 50px;
+    }
+
+    input {
+      font-size: 25px;
+      padding: 10px;
+      background-color: transparent;
+      border: 2px solid #7c3f58;
+      width: 25%;
+      border-radius: 15px;
+    }
+
+    button {
+      font-size: 25px;
+      background-color: transparent;
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li img {
+      width: 35px;
+    }
+
+    h5 {
+      margin: 0px;
+    }
+
+    .prev_guess {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    p img{
+      width: 25px;
+    }
+
+    #pre_guess_1,
+    #pre_guess_2,
+    #pre_guess_3,
+    #pre_guess_4,
+    #pre_guess_5,
+    #pre_guess_6,
+    #pre_guess_7,
+    #pre_guess_8,
+    #pre_guess_9,
+    #pre_guess_10 {
+      width: 75px;
+      height: 75px;
+      margin: 5px;
+      background-image: url(Btn_bg.png);
+      background-repeat: no-repeat;
+      background-size: 100%;
+      font-size: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    p{
+      font-size: 20px;
+      margin: 0;
+    }
+
+    @media only screen and (max-width: 600px){
+      .card{
+        width: 95%;
+      }
+    }
+  </style>
+  <body>
+    <div class="card">
+      <img src="./think.gif" alt="" width="200px" style="margin: auto; display: block; filter: drop-shadow(5px 3px 8px rgb(193, 168, 88));">
+      <label for="guessnNo">Guess a Number</label><br>
+      <input type="number" name="" id="guessnNo" />
+      <button type="button" id="submit">Guess</button>
+      
+      <ul>
+        <li id="life_1"><img src="pngegg.png" alt="" /></li>
+        <li id="life_2"><img src="pngegg.png" alt="" /></li>
+        <li id="life_3"><img src="pngegg.png" alt="" /></li>
+        <li id="life_4"><img src="pngegg.png" alt="" /></li>
+        <li id="life_5"><img src="pngegg.png" alt="" /></li>
+        <li id="life_6"><img src="pngegg.png" alt="" /></li>
+        <li id="life_7"><img src="pngegg.png" alt="" /></li>
+        <li id="life_8"><img src="pngegg.png" alt="" /></li>
+        <li id="life_9"><img src="pngegg.png" alt="" /></li>
+        <li id="life_10"><img src="pngegg.png" alt="" /></li>
+      </ul>
+      <p><img src="./remind.gif" alt=""> Reminder <img src="./remind.gif" alt=""></p>
+      <p>You will have 10 life.<br>If the hearts run out, Game Over<br>Use wisely !!!
+      </p>
+      <h3 style="font-size: 25px; margin-top: 15px; margin-bottom: 0;">Your Guesses</h3>
+      <h5 id="feedback"></h5>
+      <div class="prev_guess">
+        <div id="pre_guess_1"></div>
+        <div id="pre_guess_2"></div>
+        <div id="pre_guess_3"></div>
+        <div id="pre_guess_4"></div>
+        <div id="pre_guess_5"></div>
+        <div id="pre_guess_6"></div>
+        <div id="pre_guess_7"></div>
+        <div id="pre_guess_8"></div>
+        <div id="pre_guess_9"></div>
+        <div id="pre_guess_10"></div>
+      </div>
+      <button id="again" style="visibility: hidden; margin: 10px">
+        Play Again
+      </button>
+    </div>
+  </body>
+  <script>
+    let right_no = Math.floor(Math.random() * 100);
+    let guess = [];
+    let guessTImes = 0;
+    console.log(right_no);
+
+    document.getElementById("submit").addEventListener("click", submit_no);
+    document.getElementById("again").addEventListener("click", reload);
+
+    function submit_no() {
+      guessTImes++;
+      
+      let guessNumber = document.getElementById("guessnNo");
+      let guess_no = guessNumber.value;
+
+      if (guess_no == "") {
+        document.getElementById("feedback").innerHTML = "You can't guess a blank";
+      } else if(guess_no% 1 != 0){
+        document.getElementById("feedback").innerHTML = "You need to guess integer number";
+      }else {
+        if (guessTImes > 10) {
+          guessNumber.disabled = true;
+          document.getElementById("again").style.visibility = "visible";
+          document.getElementById("again").innerHTML = "Try Again!!!";
+          document.getElementById("feedback").innerHTML =
+            "Too Many Guess!!! Reload and Try Again";
+        } else {
+          guess.push(guess_no);
+          displayPreviousGuesses();
+          updateLives(guessTImes);
+          if (guess_no != right_no && guess_no < right_no) {
+            document.getElementById("feedback").innerHTML =
+              " Try Again! Too low!";
+          } else if (guess_no != right_no && guess_no > right_no) {
+            document.getElementById("feedback").innerHTML =
+              " Try Again! Too High!";
+          } else {
+            guessNumber.disabled = true;
+            document.getElementById("again").style.visibility = "visible";
+            document.getElementById("feedback").innerHTML =
+              " Congratulations!!!";
+          }
+        }
+      }
+
+      guessNumber.value = "";
+    }
+
+    function reload() {
+      location.reload();
+    }
+
+    function updateLives(guessTImes) {
+      for (let i = 0; i < guessTImes; i++) {
+        document.getElementById("life_" + (10 - i)).style.visibility = "hidden";
+      }
+    }
+
+    function displayPreviousGuesses() {
+      guess.forEach((g, index) => {
+        document.getElementById("pre_guess_" + (index + 1)).innerText = g;
+      });
+    }
+  </script>
+</html>
