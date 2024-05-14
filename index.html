@@ -177,7 +177,6 @@
     let right_no = Math.floor(Math.random() * 10000);
     let guess = [];
     let guessTImes = 0;
-    console.log(right_no);
 
     document.getElementById("submit").addEventListener("click", submit_no);
     document.getElementById("again").addEventListener("click", reload);
@@ -199,6 +198,7 @@
           document.getElementById("again").innerHTML = "Try Again!!!";
           document.getElementById("feedback").innerHTML =
             "Too Many Guess!!! Reload and Try Again";
+            alert(`You lose. The correct No. is ${right_no} `)
         } else {
           guess.push(guess_no);
           displayPreviousGuesses();
